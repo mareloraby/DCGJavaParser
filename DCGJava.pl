@@ -1,59 +1,61 @@
 
-java_code --> assignment_statement.
-java_code --> conditional_statement.
-java_code --> loop.
+
+s(s( JC ) ) --> java_code(Jc)
+
+java_code( jc(As)) --> assignment_statement(As).
+java_code( jc(Cs) ) --> conditional_statement(Cs).
+java_code( jc(Ls) ) --> loop(Ls).
 
 % ---------------------------------------------------------
 
-assignment_statement --> java_identifier, [=], arithmetic_expression, [';'].
+assignment_statement(as(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
-arithmetic_expression --> arithmetic_term, arithmetic_expression_rest.
+arithmetic_expression( ae(AT,AER) ) --> arithmetic_term(AT), arithmetic_expression_rest(AER).
 
-arithmetic_expression_rest --> [+], arithmetic_term, arithmetic_expression_rest.
-arithmetic_expression_rest --> [-], arithmetic_term, arithmetic_expression_rest.
-arithmetic_expression_rest --> [*], arithmetic_term, arithmetic_expression_rest.
-arithmetic_expression_rest --> [/], arithmetic_term, arithmetic_expression_rest.
-arithmetic_expression_rest --> ['%'], arithmetic_term, arithmetic_expression_rest.
-arithmetic_expression_rest --> [].
+arithmetic_expression_rest( aer(+, AT, AER) ) --> [+], arithmetic_term(AT), arithmetic_expression_rest(AER).
+arithmetic_expression_rest( aer(-, AT, AER) ) --> [-], arithmetic_term(AT), arithmetic_expression_rest(AER).
+arithmetic_expression_rest( aer(*, AT, AER) ) --> [*], arithmetic_term(AT), arithmetic_expression_rest(AER).
+arithmetic_expression_rest( aer(/, AT, AER) ) --> [/], arithmetic_term(AT), arithmetic_expression_rest(AER).
+arithmetic_expression_rest( aer('%', AT, AER) ) --> ['%'], arithmetic_term(AT), arithmetic_expression_rest(AER).
+arithmetic_expression_rest( aer() ) --> [].
 
-arithmetic_term --> term.
-arithmetic_term --> ['('], arithmetic_expression, [')'].
+arithmetic_term( at(T) ) --> term(T).
+arithmetic_term( at('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-term --> java_identifier.
-term --> unsigned_int_literal.
+term( t(JI) ) --> java_identifier(JI).
+term( t(Uil) ) --> unsigned_int_literal(Uil).
 
-% java_identifier --> [X], { atom(X), atom_chars(X, [XCode]), code_type(XCode, alpha) }.
-java_identifier --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
+java_identifier( ji(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
 
 java_identifier_char(C) :- code_type(C, alpha).
 java_identifier_char(C) :- code_type(C, digit).
 java_identifier_char('_').
 
-unsigned_int_literal --> [X], { integer(X)}.
+unsigned_int_literal( uil(X) ) --> [X], {integer(X)}.
 
 % ---------------------------------------------------------
 
-conditional_statement --> ['if'], ['('], condition, [')'], if_body, else_condition.
+conditional_statement(cs('if','(', Cn, ')', Ifb, Else)) --> ['if'], ['('], condition(Cn), [')'], if_body(Ifb), else_condition(Else).
 
-if_body --> assignment_statement.
-if_body --> conditional_statement.
+if_body( ibody(AS) ) --> assignment_statement(AS).
+if_body( ibody(CS) ) --> conditional_statement(CS).
 
-else_condition --> ['else'], if_body.
-else_condition --> [].
-
-% ---------------------------------------------------------
-
-loop --> ['while'], ['('], condition, [')'], loop_body.
-
-loop_body --> assignment_statement.
-loop_body --> loop.
+else_condition(ec( 'else', Ifb)) --> ['else'], if_body(Ifb).
+else_condition(ec()) --> [].
 
 % ---------------------------------------------------------
 
-condition --> arithmetic_expression, ['=='], arithmetic_expression.
-condition --> arithmetic_expression, ['!='], arithmetic_expression.
-condition --> arithmetic_expression, ['<='], arithmetic_expression.
-condition --> arithmetic_expression, ['>='], arithmetic_expression.
-condition --> arithmetic_expression, ['<'], arithmetic_expression.
-condition --> arithmetic_expression, ['>'], arithmetic_expression.
+loop( while('while','(', Cn,')',Lb) ) --> ['while'], ['('], condition(Cn), [')'], loop_body(Lb).
+
+loop_body( lbody(AS)) --> assignment_statement(AS).
+loop_body( lbody(W)) --> loop(W).
+
+% ---------------------------------------------------------
+
+condition( cdn(AE,'==',AE) ) --> arithmetic_expression(AE), ['=='], arithmetic_expression(AE).
+condition( cdn(AE,'!=',AE) ) --> arithmetic_expression(AE), ['!='], arithmetic_expression(AE).
+condition( cdn(AE,'<=',AE) ) --> arithmetic_expression(AE), ['<='], arithmetic_expression(AE).
+condition( cdn(AE,'>=',AE) ) --> arithmetic_expression(AE), ['>='], arithmetic_expression(AE).
+condition( cdn(AE,'<',AE) ) -->  arithmetic_expression(AE), ['<'],  arithmetic_expression(AE).
+condition( cdn(AE,'>',AE) ) -->  arithmetic_expression(AE), ['>'],  arithmetic_expression(AE).
 
