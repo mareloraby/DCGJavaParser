@@ -1,6 +1,4 @@
-
-
-s(s( JC ) ) --> java_code(Jc)
+s(s(JC)) --> java_code(JC).
 
 java_code( jc(As)) --> assignment_statement(As).
 java_code( jc(Cs) ) --> conditional_statement(Cs).
