@@ -1,18 +1,17 @@
 s( s(As)) --> assignment_statement(As).
 
-s( s(Ls) ) --> loop(Ls).
+s( s(Ls)) --> loop(Ls).
 s( s(As, Ls)) --> assignment_statement(As), loop(Ls).
 
-s( s(Cs) ) --> conditional_statement(Cs).
+s( s(Cs)) --> conditional_statement(Cs).
 s( s(As, Cs)) --> assignment_statement(As), conditional_statement(Cs).
 
 % ---------------------------------------------------------
 
 assignment_statement(assignStatement(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
-arithmetic_expression( exprs(AT) ) --> arithmetic_term(AT).
+arithmetic_expression( AT ) --> arithmetic_term(AT).
 arithmetic_expression( exprs(AT,AER) ) --> arithmetic_term(AT), arithmetic_expression_rest(AER).
-
 
 arithmetic_expression_rest( exprsRest(+, AT) ) --> [+], arithmetic_term(AT).
 arithmetic_expression_rest( exprsRest(+, AT, AER) ) --> [+], arithmetic_term(AT), arithmetic_expression_rest(AER).
@@ -44,7 +43,6 @@ else_condition(elseBody( 'else', Ifb)) --> ['else'], if_body(Ifb).
 
 if_body( ifbody(AS) ) --> assignment_statement(AS).
 if_body( ifbody(CS) ) --> conditional_statement(CS).
-
 
 % ---------------------------------------------------------
 
