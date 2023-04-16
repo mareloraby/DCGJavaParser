@@ -2,12 +2,11 @@ s( s(JC1)) --> java_code(JC1).
 s( s(JC1, JC2) ) --> java_code(JC1), java_code(JC2).
 s( s(JC1, JC2, JC3)) --> java_code(JC1), java_code(JC2), java_code(JC3).
 s( s(JC1, JC2, JC3, JC4)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4).
+s( s(JC1, JC2, JC3, JC4, JC5)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5).
 
 % ---------------------------------------------------------
 
-java_code(As) --> assignment_statement(As). 
-java_code(Ls) --> loop(Ls).
-java_code(Cs) --> conditional_statement(Cs).
+java_code(Stmt) --> assignment_statement(Stmt) | loop(Stmt) | conditional_statement(Stmt).
 
 % ---------------------------------------------------------
 
@@ -18,7 +17,7 @@ arithmetic_expr_rest( exprsRest(OP, AT) ) --> arithmetic_operator(OP), arithmeti
 arithmetic_expr_rest( exprsRest(OP, AT, AER) ) --> arithmetic_operator(OP), arithmetic_term(AT), arithmetic_expr_rest(AER).
 
 arithmetic_term( JI ) --> java_identifier(JI).
-arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
+arithmetic_term( Uil ) --> unsigned_int_literal(Uil).
 arithmetic_term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
 java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
@@ -37,14 +36,11 @@ conditional_statement(ifStatement(if,'(', Cn, ')', Ifb)) --> [i,f], ['('], condi
 conditional_statement(ifStatement(if,'(', Cn, ')', Ifb, Else)) --> [i,f], ['('], condition(Cn), [')'], if_body(Ifb), else_condition(Else).
 else_condition(elseBody( else, Ifb)) --> [e,l,s,e], if_body(Ifb).
 
-assignment_statement(assignStatement(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
+assignment_statement(assign(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
-loop_body( loopBody(AS)) --> assignment_statement(AS).
-loop_body( loopBody(AS)) --> conditional_statement(AS).
-loop_body( loopBody(W)) --> loop(W).
+loop_body( loopBody(Stmt)) --> assignment_statement(Stmt) | loop(Stmt).
 
-if_body( ifbody(AS) ) --> assignment_statement(AS).
-if_body( ifbody(CS) ) --> conditional_statement(CS).
+if_body( ifbody(Stmt) ) --> assignment_statement(Stmt) | conditional_statement(Stmt).
 
 condition( cdn(AE1,Op,AE2) ) -->  arithmetic_expression(AE1), cprn_operator(Op), arithmetic_expression(AE2).
 
@@ -60,6 +56,3 @@ arithmetic_operator( - ) --> [-].
 arithmetic_operator( / ) --> [/].
 arithmetic_operator( * ) --> [*].
 arithmetic_operator( '%' ) --> ['%'].
-
-% ---------------------------------------------------------
-
