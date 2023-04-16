@@ -2,6 +2,7 @@
 
 s(s(Assignments)) --> assignments(Assignments).
 
+% assignments([Assignment|Assignments]) --> assignment(Assignment), [';'], assignments(Assignments).
 assignments(Assignment) --> assignment(Assignment), [';'].
 
 assignment(assign(Id, '=',Expr)) --> identifier(Id), ['='], expression(Expr).
@@ -13,14 +14,16 @@ expression(Accumulator, Accumulator) --> [].
 
 term(Term) --> factor(Factor), term(Factor, Term).
 
-term(Accumulator, Term) --> arithmetic_operator(OP), factor(Factor), { Accumulator1 = (Accumulator, OP, Factor) }, term(Accumulator1, Term).
+term(Accumulator, Term) --> ['*'], factor(Factor), { Accumulator1 = (Accumulator, *, Factor) }, term(Accumulator1, Term).
+term(Accumulator, Term) --> ['/'], factor(Factor), { Accumulator1 = (Accumulator, /, Factor) }, term(Accumulator1, Term).
+term(Accumulator, Term) --> ['%'], factor(Factor), { Accumulator1 = (Accumulator, '%', Factor) }, term(Accumulator1, Term).
 term(Accumulator, Accumulator) --> [].
 
 factor(int(Num)) --> [Num], { integer(Num) }.
 factor(id(Id)) --> identifier(Id).
 factor(paren(Expr)) --> ['('], expression(Expr), [')'].
 
-identifier([H|T]) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
+identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
 identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
 identifier_cont([]) --> [].
 
@@ -30,6 +33,6 @@ is_alnum(H) :- code_type(H, alnum); (integer(H)).
 
 % arithmetic_operator( + ) --> [+].
 % arithmetic_operator( - ) --> [-].
-arithmetic_operator( / ) --> [/].
-arithmetic_operator( * ) --> [*].
-arithmetic_operator( '%' ) --> ['%'].
+% arithmetic_operator( / ) --> [/].
+% arithmetic_operator( * ) --> [*].
+% arithmetic_operator( '%' ) --> ['%'].
