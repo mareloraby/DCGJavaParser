@@ -19,12 +19,19 @@ arithmetic_expr_rest( exprsRest(OP, AT, AER) ) --> arithmetic_operator(OP), arit
 
 arithmetic_term( JI ) --> java_identifier(JI).
 arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
-arithmetic_term( bracketTrm('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
+arithmetic_term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-java_identifier( id(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
-java_identifier_char(C) :- code_type(C, alpha).
-java_identifier_char(C) :- code_type(C, digit).
-java_identifier_char('_').
+% java_identifier( id(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
+% java_identifier_char(C) :- code_type(C, alpha).
+% java_identifier_char(C) :- code_type(C, digit).
+% java_identifier_char('_').
+
+java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
+identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
+identifier_cont([]) --> [].
+
+is_alpha(H) :- code_type(H, alpha).
+is_alnum(H) :- code_type(H, alnum); (integer(H)).
 
 unsigned_int_literal( int(X) ) --> [X], {integer(X)}.
 
@@ -38,13 +45,13 @@ else_condition(elseBody( 'else', Ifb)) --> ['else'], if_body(Ifb).
 assignment_statement(assignStatement(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
 loop_body( loopBody(AS)) --> assignment_statement(AS).
+loop_body( loopBody(AS)) --> conditional_statement(AS).
 loop_body( loopBody(W)) --> loop(W).
 
 if_body( ifbody(AS) ) --> assignment_statement(AS).
 if_body( ifbody(CS) ) --> conditional_statement(CS).
 
 condition( cdn(AE1,Op,AE2) ) -->  arithmetic_expression(AE1), cprn_operator(Op), arithmetic_expression(AE2).
-
 
 cprn_operator('==') --> ['=='].
 cprn_operator('!=') --> ['!='].
@@ -58,3 +65,6 @@ arithmetic_operator( - ) --> [-].
 arithmetic_operator( / ) --> [/].
 arithmetic_operator( * ) --> [*].
 arithmetic_operator( '%' ) --> ['%'].
+
+% ---------------------------------------------------------
+
