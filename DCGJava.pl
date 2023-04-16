@@ -21,11 +21,6 @@ arithmetic_term( JI ) --> java_identifier(JI).
 arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
 arithmetic_term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-% java_identifier( id(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
-% java_identifier_char(C) :- code_type(C, alpha).
-% java_identifier_char(C) :- code_type(C, digit).
-% java_identifier_char('_').
-
 java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
 identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
 identifier_cont([]) --> [].
@@ -36,11 +31,11 @@ is_alnum(H) :- code_type(H, alnum); (integer(H)).
 unsigned_int_literal( int(X) ) --> [X], {integer(X)}.
 
 % ---------------------------------------------------------
-loop( whileLoop(while,'(', Cn,')',Lb) ) --> [while], ['('], condition(Cn), [')'], loop_body(Lb).
+loop( whileLoop(while,'(', Cn,')',Lb) ) --> [w,h,i,l,e], ['('], condition(Cn), [')'], loop_body(Lb).
 
-conditional_statement(ifStatement('if','(', Cn, ')', Ifb)) --> ['if'], ['('], condition(Cn), [')'], if_body(Ifb).
-conditional_statement(ifStatement('if','(', Cn, ')', Ifb, Else)) --> ['if'], ['('], condition(Cn), [')'], if_body(Ifb), else_condition(Else).
-else_condition(elseBody( 'else', Ifb)) --> ['else'], if_body(Ifb).
+conditional_statement(ifStatement(if,'(', Cn, ')', Ifb)) --> [i,f], ['('], condition(Cn), [')'], if_body(Ifb).
+conditional_statement(ifStatement(if,'(', Cn, ')', Ifb, Else)) --> [i,f], ['('], condition(Cn), [')'], if_body(Ifb), else_condition(Else).
+else_condition(elseBody( else, Ifb)) --> [e,l,s,e], if_body(Ifb).
 
 assignment_statement(assignStatement(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
@@ -53,12 +48,12 @@ if_body( ifbody(CS) ) --> conditional_statement(CS).
 
 condition( cdn(AE1,Op,AE2) ) -->  arithmetic_expression(AE1), cprn_operator(Op), arithmetic_expression(AE2).
 
-cprn_operator('==') --> ['=='].
-cprn_operator('!=') --> ['!='].
-cprn_operator('<=') --> ['<='].
-cprn_operator('>=') --> ['>='].
-cprn_operator('<') --> ['<'].
-cprn_operator('>') --> ['>'].
+cprn_operator('==') --> [=,=].
+cprn_operator('!=') --> ['!',=].
+cprn_operator('<=') --> [<,=].
+cprn_operator('>=') --> [>,=].
+cprn_operator('<') --> [<].
+cprn_operator('>') --> [>].
 
 arithmetic_operator( + ) --> [+].
 arithmetic_operator( - ) --> [-].
