@@ -55,10 +55,10 @@ loop_body( loopBody(W)) --> loop(W).
 
 % ---------------------------------------------------------
 
-condition( cdn(AE1,'==',AE2) ) --> arithmetic_term(AE1), ['=='], arithmetic_expression(AE2).
-condition( cdn(AE1,'!=',AE2) ) --> arithmetic_term(AE1), ['!='], arithmetic_expression(AE2).
-condition( cdn(AE1,'<=',AE2) ) --> arithmetic_term(AE1), ['<='], arithmetic_expression(AE2).
-condition( cdn(AE1,'>=',AE2) ) --> arithmetic_term(AE1), ['>='], arithmetic_expression(AE2).
-condition( cdn(AE1,'<',AE2) ) -->  arithmetic_term(AE1), ['<'],  arithmetic_expression(AE2).
-condition( cdn(AE1,'>',AE2) ) -->  arithmetic_term(AE1), ['>'],  arithmetic_expression(AE2).
+condition( cdn(AE1,'==',AE2) ) --> arithmetic_expression(AE1), ['=='], arithmetic_expression(AE2).
+condition( cdn(AE1,'!=',AE2) ) --> arithmetic_expression(AE1), ['!='], arithmetic_expression(AE2).
+condition( cdn(AE1,'<=',AE2) ) --> arithmetic_expression(AE1), ['<='], arithmetic_expression(AE2).
+condition( cdn(AE1,'>=',AE2) ) --> arithmetic_expression(AE1), ['>='], arithmetic_expression(AE2).
+condition( cdn(AE1,'<',AE2) ) -->  arithmetic_expression(AE1), ['<'],  arithmetic_expression(AE2).
+condition( cdn(AE1,'>',AE2) ) -->  arithmetic_expression(AE1), ['>'],  arithmetic_expression(AE2).
 
