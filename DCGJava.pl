@@ -25,8 +25,8 @@ arithmetic_expression_rest( exprsRest(/, AT, AER) ) --> [/], arithmetic_term(AT)
 arithmetic_expression_rest( exprsRest('%', AT) ) --> ['%'], arithmetic_term(AT).
 arithmetic_expression_rest( exprsRest('%', AT, AER) ) --> ['%'], arithmetic_term(AT), arithmetic_expression_rest(AER).
 
-arithmetic_term( arithTrm(JI) ) --> java_identifier(JI).
-arithmetic_term( arithTrm(Uil) ) -->unsigned_int_literal(Uil).
+arithmetic_term( JI ) --> java_identifier(JI).
+arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
 arithmetic_term( bracketTrm('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
 java_identifier( id(X) ) --> [X], { X \== while, X \== if, atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
