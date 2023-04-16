@@ -21,17 +21,17 @@ arithmetic_term( JI ) --> java_identifier(JI).
 arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
 arithmetic_term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-java_identifier( id(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
-java_identifier_char(C) :- code_type(C, alpha).
-java_identifier_char(C) :- code_type(C, digit).
-java_identifier_char('_').
+% java_identifier( id(X) ) --> [X], {atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
+% java_identifier_char(C) :- code_type(C, alpha).
+% java_identifier_char(C) :- code_type(C, digit).
+% java_identifier_char('_').
 
-% java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
-% identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
-% identifier_cont([]) --> [].
+java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
+identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
+identifier_cont([]) --> [].
 
-% is_alpha(H) :- code_type(H, alpha).
-% is_alnum(H) :- code_type(H, alnum); (integer(H)).
+is_alpha(H) :- code_type(H, alpha).
+is_alnum(H) :- code_type(H, alnum); (integer(H)).
 
 unsigned_int_literal( int(X) ) --> [X], {integer(X)}.
 
