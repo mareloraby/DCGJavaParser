@@ -2,23 +2,22 @@ s( s(JC1)) --> java_code(JC1).
 s( s(JC1, JC2) ) --> java_code(JC1), java_code(JC2).
 s( s(JC1, JC2, JC3)) --> java_code(JC1), java_code(JC2), java_code(JC3).
 s( s(JC1, JC2, JC3, JC4)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4).
-s( s(JC1, JC2, JC3, JC4, JC5)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5).
 
 % ---------------------------------------------------------
 
-java_code(Stmt) --> assignment_statement(Stmt) | loop(Stmt) | conditional_statement(Stmt).
+java_code(Stmt) --> loop(Stmt) | conditional_statement(Stmt) | assignment_statement(Stmt).
 
 % ---------------------------------------------------------
 
-arithmetic_expression( AT ) --> arithmetic_term(AT).
-arithmetic_expression( exprs(AT,AER) ) --> arithmetic_term(AT), arithmetic_expr_rest(AER).
+arithmetic_expression( AT ) --> term(AT).
+arithmetic_expression( exprs(AT,AER) ) --> term(AT), arithmetic_expr_rest(AER).
 
-arithmetic_expr_rest( exprsRest(OP, AT) ) --> arithmetic_operator(OP), arithmetic_term(AT).
-arithmetic_expr_rest( exprsRest(OP, AT, AER) ) --> arithmetic_operator(OP), arithmetic_term(AT), arithmetic_expr_rest(AER).
+arithmetic_expr_rest( exprsRest(OP, AT) ) --> arithmetic_operator(OP), term(AT).
+arithmetic_expr_rest( exprsRest(OP, AT, AER) ) --> arithmetic_operator(OP), term(AT), arithmetic_expr_rest(AER).
 
-arithmetic_term( JI ) --> java_identifier(JI).
-arithmetic_term( Uil ) --> unsigned_int_literal(Uil).
-arithmetic_term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
+term( JI ) --> java_identifier(JI).
+term( Uil ) --> unsigned_int_literal(Uil).
+term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
 java_identifier(id([H|T])) --> [H], { is_alpha(H); H == '_' }, identifier_cont(T).
 identifier_cont([H|T]) --> [H], { is_alnum(H) }, identifier_cont(T).
@@ -30,6 +29,7 @@ is_alnum(H) :- code_type(H, alnum); (integer(H)).
 unsigned_int_literal( int(X) ) --> [X], {integer(X)}.
 
 % ---------------------------------------------------------
+
 loop( whileLoop(while,'(', Cn,')',Lb) ) --> [w,h,i,l,e], ['('], condition(Cn), [')'], loop_body(Lb).
 
 conditional_statement(ifStatement(if,'(', Cn, ')', Ifb)) --> [i,f], ['('], condition(Cn), [')'], if_body(Ifb).
