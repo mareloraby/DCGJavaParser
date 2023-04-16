@@ -29,7 +29,7 @@ arithmetic_term( JI ) --> java_identifier(JI).
 arithmetic_term( Uil ) -->unsigned_int_literal(Uil).
 arithmetic_term( bracketTrm('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-java_identifier( id(X) ) --> [X], { X \== while, X \== if, atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
+java_identifier( id(X) ) --> [X], { X \== while, X \== if, X\== else, atom_chars(X,Chars), Chars\=[], Chars = [FirstChar|_], \+code_type(FirstChar, digit), maplist(java_identifier_char,Chars)}.
 java_identifier_char(C) :- code_type(C, alpha).
 java_identifier_char(C) :- code_type(C, digit).
 java_identifier_char('_').
