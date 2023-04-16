@@ -1,10 +1,12 @@
-s( s(As)) --> assignment_statement(As).
+s( s(JC1)) --> java_code(JC1).
+s( s(JC1, JC2) ) --> java_code(JC1), java_code(JC2).
+s( s(JC1, JC2, JC3)) --> java_code(JC1), java_code(JC2), java_code(JC3).
 
-s( s(Ls)) --> loop(Ls).
-s( s(As, Ls)) --> assignment_statement(As), loop(Ls).
+% ---------------------------------------------------------
 
-s( s(Cs)) --> conditional_statement(Cs).
-s( s(As, Cs)) --> assignment_statement(As), conditional_statement(Cs).
+java_code(As) --> assignment_statement(As). 
+java_code(Ls) --> loop(Ls).
+java_code(Cs) --> conditional_statement(Cs).
 
 % ---------------------------------------------------------
 
