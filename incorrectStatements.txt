@@ -1,0 +1,7 @@
+Soundness (Ungrammatical sentences that should be rejected):
+s(T, [v, =, 23, *, s, a, l, +, 1, a, z, ;], []).
+
+s(T, [x, =, z, ;, if, '(', x, >, y, ')', x, '_', n, e, w, =, z, ;, else, x, '_', n, 
+e, w, =, y, ;, else, y, =, z, ;], []).
+
+s(T, [if, '(', x, >, 0, ')', x, =, x, -, 1], []).
