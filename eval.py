@@ -5,7 +5,7 @@ prolog = Prolog()
 prolog.consult('DCGJava.pl')
 
 # Loop over the queries in the txt file
-with open('incorrectStatements.txt', 'r') as f:
+with open('correctStatements.txt', 'r') as f:
     
     for i, line in enumerate(f):
     # Skip the first line
@@ -20,4 +20,6 @@ with open('incorrectStatements.txt', 'r') as f:
         results = list(prolog.query(query))
 
         print(bool(results))
-        # print(results[-1])
+        if(bool(results)):
+            print(results[-1])
+            print('\n')
