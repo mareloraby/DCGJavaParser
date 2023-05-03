@@ -1,3 +1,10 @@
+% s( s(JC1)) --> java_code(JC1).
+% s( s(JC1, JC2) ) --> java_code(JC1), java_code(JC2).
+% s( s(JC1, JC2, JC3)) --> java_code(JC1), java_code(JC2), java_code(JC3).
+% s( s(JC1, JC2, JC3, JC4)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4).
+% s( s(JC1, JC2, JC3, JC4, JC5)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5).
+% s( s(JC1, JC2, JC3, JC4, JC5, JC6)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5), java_code(JC6).
+
 s(s(JCs)) --> java_codes(JCs).
 
 java_codes([]) --> [].
@@ -38,8 +45,8 @@ term( JI ) --> java_identifier(JI).
 term( Uil ) --> unsigned_int_literal(Uil).
 term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
-java_identifier(id([H|T])) --> [H], {  (H\=='while', H \== 'if', H\== 'else'), (is_alpha(H); H == '_') }, identifier_cont(T).
-identifier_cont([H|T]) --> [H], { ((H \== '!='), (H \== '<='), (H \== '>='), (H \== '==') ), is_alnum(H)  }, identifier_cont(T).
+java_identifier(id([H|T])) --> [H], {  (H\=='while', H \== 'if', H\== 'else'), (is_alpha(H); H == '_'; H== '$') }, identifier_cont(T).
+identifier_cont([H|T]) --> [H], { ((H \== '!='), (H \== '<='), (H \== '>='), (H \== '==') ), (is_alnum(H); H== '$';  H == '_')  }, identifier_cont(T).
 identifier_cont([]) --> [].
 
 is_alpha(H) :- code_type(H, alpha).

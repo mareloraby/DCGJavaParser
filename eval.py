@@ -5,7 +5,7 @@ prolog = Prolog()
 prolog.consult('DCGJava.pl')
 
 # Loop over the queries in the txt file
-with open('incorrectStatements.txt', 'r') as f:
+with open('correctStatements.txt', 'r') as f:
     
     for i, line in enumerate(f):
     # Skip the first line
