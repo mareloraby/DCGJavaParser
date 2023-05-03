@@ -22,9 +22,9 @@ else_condition(elseBody( else, Ifb)) --> [else], if_body(Ifb).
 
 assignment_statement(assign(JI,=,AE,';')) --> java_identifier(JI), [=], arithmetic_expression(AE), [';'].
 
-loop_body( loopBody(Stmt)) --> assignment_statement(Stmt) | loop(Stmt).
+loop_body( loopBody(Stmt)) --> java_code(Stmt) | loop(Stmt).
 
-if_body( ifbody(Stmt) ) --> assignment_statement(Stmt) | conditional_statement(Stmt).
+if_body( ifbody(Stmt) ) --> java_code(Stmt) | conditional_statement(Stmt).
 
 condition( cdn(AE1,Op,AE2) ) -->  arithmetic_expression(AE1), cprn_operator(Op), arithmetic_expression(AE2).
 
@@ -46,7 +46,7 @@ term( Uil ) --> unsigned_int_literal(Uil).
 term( paren('(', AE, ')')) --> ['('], arithmetic_expression(AE), [')'].
 
 java_identifier(id([H|T])) --> [H], {  (H\=='while', H \== 'if', H\== 'else'), (is_alpha(H); H == '_'; H== '$') }, identifier_cont(T).
-identifier_cont([H|T]) --> [H], { ((H \== '!='), (H \== '<='), (H \== '>='), (H \== '==') ), (is_alnum(H); H== '$';  H == '_')  }, identifier_cont(T).
+identifier_cont([H|T]) --> [H], { ((H \== '!='), (H \== '<='), (H \== '>='), (H \== '==') ), (is_alnum(H);  H == '_')  }, identifier_cont(T).
 identifier_cont([]) --> [].
 
 is_alpha(H) :- code_type(H, alpha).
