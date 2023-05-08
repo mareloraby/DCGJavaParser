@@ -14,6 +14,17 @@ _n1 = _n2;
 _n2 = fib;
 
 ```
+Prolog query:
+```Prolog
+s(T,[_n1, =, 13,;, _n2, =, 21,;, f,i,b, =, _n1, +, _n2,;, _n1, =, _n2,;, _n2, =, f,i,b,;],[]).
+```
+Output:
+
+```Prolog
+T = s([assign(id([65]), =, int(13), ;), assign(id([65]), =, int(21), ;), assign(id([f, i, b]), =, exprs(id([65]), exprsRest(+, id([65]))), ;), assign(id([65]), =, id([65]), ;), assign(id([65]), =, id([f, i, b]), ;)]),
+_n1 = _n2, _n2 = 65 .
+```
+
 - Java if and if-else statements, nested to any depth, and with bodies which are single statements.
 ```java
 
