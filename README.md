@@ -80,6 +80,6 @@ T = s([whileLoop(while, '(', cdn(id([i]), <=, id([n, u, m])), ')', loopBody(assi
 
 [`correctStatements.txt`](/tests/correctStatements.txt) contains prolog queries that should return a parse tree, while [`incorrectStatements.txt`](/tests/incorrectStatements.txt) contains incorrect ones that should return false. 
 
-To test the queries, open the file [`eval.py`](\eval.py) and replace the parameter ```file_name``` with either `correctStatements.txt` or `incorrectStatements.txt`. Next, run the file to test all the queries.
+To test the queries, open the file [`eval.py`](\eval.py) and replace the parameter ```test_file_name``` with either `correctStatements.txt` or `incorrectStatements.txt`. Next, run the file to test all the queries.
 
 > NB: The code assumes that the queries in the file are correctly formatted and can be evaluated by Prolog.
