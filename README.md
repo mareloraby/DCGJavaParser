@@ -82,7 +82,7 @@ T = s([whileLoop(while, '(', cdn(id([i]), <=, id([n, u, m])), ')', loopBody(assi
 
 To test the queries, open the file [`eval.py`](\eval.py) and replace the parameter ```test_file_name``` with either `correctStatements.txt` or `incorrectStatements.txt`. Next, run the file to test all the queries.
 
-> NB: The ecaluation code assumes that the queries in the file are correctly formatted and can be evaluated by Prolog.
+> NB: The evaluation code assumes that the queries in the file are correctly formatted and can be evaluated by Prolog.
 ---
 ### \\\\ TODO:
-These DCG might need to be optimized
+The DCG might need to be optimized
