@@ -1,7 +1,7 @@
 from pyswip import Prolog
 
 # txt file
-fine_name = 'correctStatements.txt'
+fine_name = 'tests\correctStatements.txt'
 
 # Load the Prolog file
 prolog = Prolog()
