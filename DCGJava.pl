@@ -1,9 +1,3 @@
-% s( s(JC1)) --> java_code(JC1).
-% s( s(JC1, JC2) ) --> java_code(JC1), java_code(JC2).
-% s( s(JC1, JC2, JC3)) --> java_code(JC1), java_code(JC2), java_code(JC3).
-% s( s(JC1, JC2, JC3, JC4)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4).
-% s( s(JC1, JC2, JC3, JC4, JC5)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5).
-% s( s(JC1, JC2, JC3, JC4, JC5, JC6)) --> java_code(JC1), java_code(JC2), java_code(JC3), java_code(JC4), java_code(JC5), java_code(JC6).
 
 s(s(JCs)) --> java_codes(JCs).
 
