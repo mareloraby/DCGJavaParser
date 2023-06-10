@@ -1,11 +1,14 @@
 from pyswip import Prolog
 
+# txt file
+fine_name = 'correctStatements.txt'
+
 # Load the Prolog file
 prolog = Prolog()
 prolog.consult('DCGJava.pl')
 
 # Loop over the queries in the txt file
-with open('correctStatements.txt', 'r') as f:
+with open(file_name, 'r') as f:
     
     for i, line in enumerate(f):
     # Skip the first line
