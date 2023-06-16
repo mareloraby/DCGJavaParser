@@ -22,8 +22,7 @@ s(T,[_,n,1, =, 13,;, _,n,2, =, 21,;, f,i,b, =, _,n,1, +, _,n,2,;, _,n,1, =, _,n,
 Output:
 
 ```Prolog
-T = s([assign(id([65]), =, int(13), ;), assign(id([65]), =, int(21), ;), assign(id([f, i, b]), =, exprs(id([65]), exprsRest(+, id([65]))), ;), assign(id([65]), =, id([65]), ;), assign(id([65]), =, id([f, i, b]), ;)]),
-_n1 = _n2, _n2 = 65 .
+T = s([assign(id([65, n, 1]), =, int(13), ;), assign(id([65, n, 2]), =, int(21), ;), assign(id([f, i, b]), =, exprs(id([65, n, 1]), exprsRest(+, id([65, n, 2]))), ;), assign(id([65, n, 1]), =, id([65, n, 2]), ;), assign(id([65, n, 2]), =, id([f, i, b]), ;)])
 ```
 
 ---
