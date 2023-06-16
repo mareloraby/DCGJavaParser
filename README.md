@@ -75,7 +75,7 @@ T = s([whileLoop(while, '(', cdn(id([i]), <=, id([n, u, m])), ')', loopBody(assi
 ```
 ---
 
-## How to run:
+## How to test:
 
 [`correctStatements.txt`](/tests/correctStatements.txt) contains prolog queries that should return a parse tree, while [`incorrectStatements.txt`](/tests/incorrectStatements.txt) contains incorrect ones that should return false. 
 
