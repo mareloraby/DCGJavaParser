@@ -17,7 +17,7 @@ _n2 = fib;
 ```
 Prolog query:
 ```Prolog
-s(T,[_n1, =, 13,;, _n2, =, 21,;, f,i,b, =, _n1, +, _n2,;, _n1, =, _n2,;, _n2, =, f,i,b,;],[]).
+s(T,[_,n,1, =, 13,;, _,n,2, =, 21,;, f,i,b, =, _,n,1, +, _,n,2,;, _,n,1, =, _,n,2,;, _,n,2, =, f,i,b,;],[]).
 ```
 Output:
 
@@ -83,6 +83,3 @@ T = s([whileLoop(while, '(', cdn(id([i]), <=, id([n, u, m])), ')', loopBody(assi
 To test the queries, open the file [`eval.py`](\eval.py) and replace the parameter ```test_file_name``` with either `correctStatements.txt` or `incorrectStatements.txt`. Next, run the file to test all the queries.
 
 > NB: The evaluation code assumes that the queries in the file are correctly formatted and can be evaluated by Prolog.
----
-### \\\\ TODO:
-The DCG might need to be optimized
