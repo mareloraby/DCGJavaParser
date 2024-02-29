@@ -44,7 +44,7 @@ else
     
 ```
 
-Prolog query of the second example:
+Prolog query for the first example:
 
 ```Prolog
 s(T,['if','(',n, ==, 0, ')',  f,i,b, =, 0,;, 'if','(',n, ==, 1,')', f,i,b, =, 1,;],[]).
